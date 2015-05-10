@@ -96,7 +96,7 @@ static mrb_value mrb_core_digitalRead(mrb_state *mrb, mrb_value self) {
   return mrb_fixnum_value(digitalRead(pin));
 }
 
-#ifdef DISABLE_ANALOG
+#ifndef DISABLE_ANALOG
 static mrb_value mrb_core_analogWrite(mrb_state *mrb, mrb_value self) {
   mrb_int pin, value;
   mrb_get_args(mrb, "ii", &pin, &value);
@@ -213,7 +213,7 @@ void mrb_mruby_raspberry_gem_init(mrb_state *mrb) {
   mrb_define_class_method(mrb, core, "pwm_write", mrb_core_pwmWrite, MRB_ARGS_REQ(2));
   mrb_define_class_method(mrb, core, "digital_read", mrb_core_digitalRead, MRB_ARGS_REQ(1));
 
-#ifdef DISABLE_ANALOG
+#ifndef DISABLE_ANALOG
   mrb_define_class_method(mrb, core, "analog_write", mrb_core_analogWrite, MRB_ARGS_REQ(2));
   mrb_define_class_method(mrb, core, "analog_read", mrb_core_analogRead, MRB_ARGS_REQ(1));
 #endif
