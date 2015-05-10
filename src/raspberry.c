@@ -31,6 +31,8 @@
 
 static int g_setup = 0;
 
+#define DISABLE_ANALOG
+
 /*
   ____                 _
  |  _ \ __ _ ___ _ __ | |__   ___ _ __ _ __ _   _
@@ -88,6 +90,7 @@ static mrb_value mrb_core_pwmWrite(mrb_state *mrb, mrb_value self) {
   return mrb_nil_value();
 }
 
+#ifdef DISABLE_ANALOG
 static mrb_value mrb_core_digitalRead(mrb_state *mrb, mrb_value self) {
   mrb_int pin;
   mrb_get_args(mrb, "i", &pin);
@@ -100,6 +103,7 @@ static mrb_value mrb_core_analogWrite(mrb_state *mrb, mrb_value self) {
   analogWrite(pin, value);
   return mrb_nil_value();
 }
+#endif
 
 static mrb_value mrb_core_analogRead(mrb_state *mrb, mrb_value self) {
   mrb_int pin;
@@ -206,9 +210,12 @@ void mrb_mruby_raspberry_gem_init(mrb_state *mrb) {
   mrb_define_class_method(mrb, core, "digital_write", mrb_core_digitalWrite, MRB_ARGS_REQ(2));
   mrb_define_class_method(mrb, core, "pwm_write", mrb_core_pwmWrite, MRB_ARGS_REQ(2));
   mrb_define_class_method(mrb, core, "digital_read", mrb_core_digitalRead, MRB_ARGS_REQ(1));
+
+#ifdef DISABLE_ANALOG
   mrb_define_class_method(mrb, core, "analog_write", mrb_core_analogWrite, MRB_ARGS_REQ(2));
   mrb_define_class_method(mrb, core, "analog_read", mrb_core_analogRead, MRB_ARGS_REQ(1));
-  
+#endif
+
   specifics = mrb_define_module_under(mrb, rasp, "Specifics");
   mrb_define_class_method(mrb, specifics, "board_rev", mrb_specifics_piBoardRev, MRB_ARGS_NONE());
   
