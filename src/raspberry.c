@@ -90,13 +90,13 @@ static mrb_value mrb_core_pwmWrite(mrb_state *mrb, mrb_value self) {
   return mrb_nil_value();
 }
 
-#ifdef DISABLE_ANALOG
 static mrb_value mrb_core_digitalRead(mrb_state *mrb, mrb_value self) {
   mrb_int pin;
   mrb_get_args(mrb, "i", &pin);
   return mrb_fixnum_value(digitalRead(pin));
 }
 
+#ifdef DISABLE_ANALOG
 static mrb_value mrb_core_analogWrite(mrb_state *mrb, mrb_value self) {
   mrb_int pin, value;
   mrb_get_args(mrb, "ii", &pin, &value);
@@ -105,11 +105,13 @@ static mrb_value mrb_core_analogWrite(mrb_state *mrb, mrb_value self) {
 }
 #endif
 
+#ifdef DISABLE_ANALOG
 static mrb_value mrb_core_analogRead(mrb_state *mrb, mrb_value self) {
   mrb_int pin;
   mrb_get_args(mrb, "i", &pin);
   return mrb_fixnum_value(analogRead(pin));
 }
+#endif
 
 /*
   _____ _           _
