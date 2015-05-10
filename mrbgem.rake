@@ -6,11 +6,4 @@ MRuby::Gem::Specification.new('mruby-raspberry') do |spec|
   spec.version = 0.1
   spec.description = spec.summary
   spec.homepage = "Not yet defined"
-  
-  spec.cc.command = 'gcc' # clang does not work!
-  spec.cc.flags << %w||
-  spec.cc.include_paths << "/usr/local/include"
-  
-  spec.linker.library_paths << "/usr/local/lib"
-  spec.linker.libraries << %w[wiringPi]
 end
