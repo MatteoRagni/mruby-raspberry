@@ -31,7 +31,7 @@
 
 static int g_setup = 0;
 
-//#define ENABLE_ANALOG
+#define ENABLE_ANALOG
 
 /*
   ____                 _
